@@ -1,4 +1,4 @@
-#!/usr/local/bin/perl -w
+#!/usr/bin/env perl
 
 # version[.pl] - Interpreter for the Version Programming Language
 # Chris Pressey, Cat's Eye Technologies
