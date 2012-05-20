@@ -1,0 +1,163 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html;CHARSET=iso-8859-1">
+    <title>Cat's Eye Technologies: The Version Programming Language</title></head>
+<body>
+
+<h1>Version</h1>
+
+<p><font size=-1>&nbsp;<img src="/images/icons/copyright.gif"
+   align=absmiddle width=12 height=12 alt="(c)" border=0>2001-2004 <a href="/">Cat's Eye Technologies</a>.  All rights reserved.<br>
+    This software is OSI Certified Open Source Software.<br>
+    OSI Certified is a certification mark of the <a href="http://www.opensource.org/"><img
+    src="/images/icons/webicon.gif" alt="[WWW]" border=0 width=12 height=12>Open Source Initiative</a>.<br>
+    See the file <a href="license.txt">license.txt</a> for license information.</font></p>
+
+<h2>What is Version?</h2>
+
+<p>Version is a programming language based on the concept of
+<i>ignorance-spaces</i>.  An ignorance-space is represented by a
+pattern (irregular expression.)  All instructions in a Version
+program have a tag or label.  Instructions with
+labels which match the current
+ignorance-space are ignored.  Other instructions are
+executed sequentially.  When the last instruction is reached,
+execution wraps around to the beginning of the program.  The
+only way to halt a program is to put it in a state in which
+all instructions will be ignored.</p>
+
+<p>Other than this ignorance-space, there are no jumping or
+conditional execution mechanisms in Version.</p>
+
+<h2>Instructions</h2>
+
+<p>Each Version instruction must occur on its own line of
+source code, and looks like:</p>
+
+<ul>
+<code><i>label</i>: <i>destination</i> = <i>expression</i></code>
+</ul>
+
+<p>The label is a string.  The destination is the name of
+a variable, or a special destination name listed below.  The expression
+may be made up of prefix operators, string variables, and special
+expression terms, listed below.</p>
+
+<p>The result of executing an instruction is that a message containing the
+expression is sent to the destination.  If the destination
+is a variable, this generally results in the state of the
+variable changing.  This may not however hold true under
+all conditions - future extensions to Version may add further
+effects under prescribed conditions.</p>
+
+<h2>Special Destinations</h2>
+
+<ul>
+<li><code>OUTPUT</code>
+<p>Sending a message to OUTPUT causes the datum in question
+to appear on the standard output communications channel.</p></li>
+
+<li><code>IGNORE</code>
+<p>Sending a message to IGNORE constitutes a request to change
+from the current ignorance-space to a new one.</p></li>
+
+<li><code>CAT</code>
+<p>Sending a message to CAT concatenates a value to the last
+(non-Special) variable assigned (at runtime, not in source code).
+If there was never a variable assigned, the last variable assigned
+is considered to be DUANE for some reason.</p></li>
+
+<li><code>PUT</code>
+<p>Sending a message to PUT concatenates a value to the <i>name</i> of
+the last variable, and copies the value from the the last variable to the
+newly named variable.  Used to simulate associative arrays.</p></li>
+
+<li><code>GET</code>
+<p>Like PUT, except it copies the value of the newly named variable
+into the last variable.  Note that the name of the last variable does not
+actually change while using PUT or GET.</p></li>
+
+</ul>
+
+<h2>Special Expression Terms</h2>
+
+<ul>
+<li><code>INPUT</code>
+<p>Accessing the name INPUT causes the standard input communications
+channel to wait for a line of text and return it (complete with trailing
+newline.)</p></li>
+
+<li><code>IGNORE</code>
+<p>Accessing the name IGNORE allows the program to inquire as to the current
+ignorance-space.</p></li>
+
+<li><code>EOL</code>
+<p>The name EOL evaluates to the end-of-line character
+sequence apropriate for the system.</p></li>
+
+<li><code>EOF</code>
+<p>The variable EOF is actually a true variable, so its value can be
+reset if needed.  It takes on the value <code>TRUE</code> (a string) should
+the end of the standard input channel be reached.</p></li>
+
+</ul>
+
+<h2>Functions</h2>
+
+<ul>
+<li><code>PRED <i>n</i></code>
+<p>Returns the predecessor of n, that is the integer that comes before
+n in the domain of integers, where n is a string containing an integer in
+decimal notation.</p></li>
+
+<li><code>SUCC <i>n</i></code>
+<p>Returns the successor of n, that is the integer that comes after
+n in the domain of integers, where n is a string containing an integer in
+decimal notation.</p></li>
+
+<li><code>CHOP <i>s</i></code>
+<p>Returns the string s with the last character missing.</p></li>
+
+<li><code>POP <i>s</i></code>
+<p>Returns the string s with the first character missing.</p></li>
+
+<li><code>LEN <i>s</i></code>
+<p>Returns the length of the string s as a string containing an
+integer in decimal notation.</p></li>
+
+</ul>
+
+<h2>Ignorance-Spaces</h2>
+
+<p>The current ignorance-space is accessed through the keyword IGNORE,
+whether as a destination or as a term in an expression.</p>
+
+<p>The ignorance-space is defined by an irregular expression, which is
+encoded in a string.  An irregular expression is like a regular expression
+in that it contains special wildcard characters.
+The wildcard characters resemble those used in MS-DOS.</p>
+
+<ul>
+<li><code>?</code> - question mark - match any character</li>
+<li><code>*</code> - asterisk - match any number of characters</li>
+<li><code>|</code> - vertical bar - seperate alternatives</li>
+</ul>
+
+<p>Any characters, except ":", are allowed in labels, which are
+case sensitive.  The characters "*", "?", and "|", if used,
+cannot be matched literally (use "?" to match them, or don't use them -
+for simplicity, wildcard characters cannot be "quoted".)</p>
+
+<p>So <code>DOG|CAT</code> would match <code>DOG</code>
+or <code>CAT</code> but not <code>cat</code> or <code>antelope</code>
+or <code>seahorse</code>.  But <code>a*e</code> would match
+<code>antelope</code>.  As would <code>a?t?l?p?</code>.</p>
+
+<h2>Conventions</h2>
+
+<p>For reasons that are not well known, the common filename extension for
+Version source files is <code>_7%</code> (underscore, seven, percent sign).</p>
+
+<p>Each source line which does not even contain a colon is treated as
+a comment.</p>
+
+</body></html>

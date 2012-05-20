@@ -1,0 +1,21 @@
+This is a pretty sad game demo.
+START: ROOM = "VALLEY|BROOK|GLADE"
+CONT: IGNORE = ROOM
+VALLEY: OUTPUT = "You are standing in a valley."
+HILL: OUTPUT = "You are on top of a hill."
+BROOK: OUTPUT = "You are by a brook."
+GLADE: OUTPUT = "You are standing in a sun-dappled glade."
+ROOM: OUTPUT = EOL
+ROOM: DIR = CHOP INPUT
+ROOM: IGNORE = DIR
+ROOM: MASK = "VAPOURS"
+N: CAT = "|N"
+S: CAT = "|S"
+E: CAT = "|E"
+W: CAT = "|W"
+ROOM: IGNORE = MASK
+N: ROOM = "VALLEY|BROOK|GLADE"
+S: ROOM = "HILL|BROOK|GLADE"
+E: ROOM = "VALLEY|HILL|BROOK"
+W: ROOM = "VALLEY|HILL|GLADE"
+LASTLY: IGNORE = "START"

@@ -1,0 +1,3 @@
+HELLO: OUTPUT = "Hello, world!"
+HELLO: OUTPUT = EOL
+HELLO: IGNORE = "*"
